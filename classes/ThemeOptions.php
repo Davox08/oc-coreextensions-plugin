@@ -206,6 +206,23 @@ class ThemeOptions
         return $options;
     }
 
+    public static function getAvailableFooters()
+    {
+        $options = ['' => 'Default Footer (Global)'];
+        try {
+            if (class_exists(\Tailor\Models\EntryRecord::class)) {
+                $footers = \Tailor\Models\EntryRecord::inSection('Site\Footers')->get();
+                if ($footers) {
+                    foreach ($footers as $footer) {
+                        $options[$footer->id] = $footer->title ?? 'Footer ' . $footer->id;
+                    }
+                }
+            }
+        } catch (\Exception $e) {}
+        
+        return $options;
+    }
+
     public static function getAvailableLayouts()
     {
         $options = [];

@@ -57,30 +57,46 @@ class Plugin extends PluginBase
                 ]);
             }
 
-            // 1.b. Inject header_variant to CMS Pages
+            // 1.b. Inject header_variant and footer_variant to CMS Pages
             if ($widget->model instanceof \Cms\Classes\Page) {
                 $widget->addFields([
                     'settings[viewBag][header_variant]' => [
                         'label' => 'Header Variant',
                         'type' => 'dropdown',
                         'tab' => 'cms::lang.editor.settings',
-                        'span' => 'full',
+                        'span' => 'left',
                         'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableHeaders',
                         'comment' => 'Select a custom header variant for this page.'
+                    ],
+                    'settings[viewBag][footer_variant]' => [
+                        'label' => 'Footer Variant',
+                        'type' => 'dropdown',
+                        'tab' => 'cms::lang.editor.settings',
+                        'span' => 'right',
+                        'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableFooters',
+                        'comment' => 'Select a custom footer variant for this page.'
                     ]
                 ], 'primary');
             }
 
-            // 1.c. Inject header_variant to Offline Boxes Pages
+            // 1.c. Inject header_variant and footer_variant to Offline Boxes Pages
             if ($widget->model instanceof \OFFLINE\Boxes\Models\Page) {
                 $widget->addFields([
                     'custom_config[header_variant]' => [
                         'label' => 'Header Variant',
                         'type' => 'dropdown',
                         'tab' => 'CMS',
-                        'span' => 'full',
+                        'span' => 'left',
                         'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableHeaders',
                         'comment' => 'Select a custom header variant for this page.'
+                    ],
+                    'custom_config[footer_variant]' => [
+                        'label' => 'Footer Variant',
+                        'type' => 'dropdown',
+                        'tab' => 'CMS',
+                        'span' => 'right',
+                        'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableFooters',
+                        'comment' => 'Select a custom footer variant for this page.'
                     ]
                 ], 'primary');
             }
