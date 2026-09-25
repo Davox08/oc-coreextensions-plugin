@@ -57,49 +57,7 @@ class Plugin extends PluginBase
                 ]);
             }
 
-            // 1.b. Inject header_variant and footer_variant to CMS Pages
-            if ($widget->model instanceof \Cms\Classes\Page) {
-                $widget->addFields([
-                    'settings[viewBag][header_variant]' => [
-                        'label' => 'Header Variant',
-                        'type' => 'dropdown',
-                        'tab' => 'cms::lang.editor.settings',
-                        'span' => 'left',
-                        'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableHeaders',
-                        'comment' => 'Select a custom header variant for this page.'
-                    ],
-                    'settings[viewBag][footer_variant]' => [
-                        'label' => 'Footer Variant',
-                        'type' => 'dropdown',
-                        'tab' => 'cms::lang.editor.settings',
-                        'span' => 'right',
-                        'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableFooters',
-                        'comment' => 'Select a custom footer variant for this page.'
-                    ]
-                ], 'primary');
-            }
-
-            // 1.c. Inject header_variant and footer_variant to Offline Boxes Pages
-            if ($widget->model instanceof \OFFLINE\Boxes\Models\Page) {
-                $widget->addFields([
-                    'custom_config[header_variant]' => [
-                        'label' => 'Header Variant',
-                        'type' => 'dropdown',
-                        'tab' => 'CMS',
-                        'span' => 'left',
-                        'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableHeaders',
-                        'comment' => 'Select a custom header variant for this page.'
-                    ],
-                    'custom_config[footer_variant]' => [
-                        'label' => 'Footer Variant',
-                        'type' => 'dropdown',
-                        'tab' => 'CMS',
-                        'span' => 'right',
-                        'options' => \Davox\CoreExtensions\Classes\ThemeOptions::class . '::getAvailableFooters',
-                        'comment' => 'Select a custom footer variant for this page.'
-                    ]
-                ], 'primary');
-            }
+            // 1.b. Removed header/footer variants injection as per user request
 
             // 2. Ocultar opciones condicionales en el Topbar (Tailor GlobalRecord)
             // Revisamos si el modelo es un registro global y si su blueprint es el Header (Site\Header)
