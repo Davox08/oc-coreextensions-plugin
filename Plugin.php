@@ -96,7 +96,7 @@ class Plugin extends PluginBase
             }
         });
 
-        // Soporte de persistencia para Repeater y FileUpload en OFFLINE.Boxes
+        // Soporte de persistencia para Repeater en OFFLINE.Boxes
         if (class_exists(\OFFLINE\Boxes\Models\Box::class)) {
             \OFFLINE\Boxes\Models\Box::extend(function ($model) {
                 if (!isset($model->hasMany['items'])) {
@@ -106,23 +106,6 @@ class Plugin extends PluginBase
                         'delete' => true,
                         'replicate' => true,
                     ];
-                }
-            });
-        }
-
-        if (class_exists(\OFFLINE\Boxes\Models\RepeaterItem::class)) {
-            \OFFLINE\Boxes\Models\RepeaterItem::extend(function ($model) {
-                if (!isset($model->attachOne['image_desktop'])) {
-                    $model->attachOne['image_desktop'] = [\System\Models\File::class, 'delete' => true];
-                }
-                if (!isset($model->attachOne['image_mobile'])) {
-                    $model->attachOne['image_mobile'] = [\System\Models\File::class, 'delete' => true];
-                }
-                if (!isset($model->attachOne['bg_image'])) {
-                    $model->attachOne['bg_image'] = [\System\Models\File::class, 'delete' => true];
-                }
-                if (!isset($model->attachOne['bg_video'])) {
-                    $model->attachOne['bg_video'] = [\System\Models\File::class, 'delete' => true];
                 }
             });
         }
