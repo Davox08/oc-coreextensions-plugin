@@ -56,44 +56,6 @@ class Plugin extends PluginBase
                     ]
                 ]);
             }
-
-            // 1.b. Removed header/footer variants injection as per user request
-
-            // 2. Ocultar opciones condicionales en el Topbar (Tailor GlobalRecord)
-            // Revisamos si el modelo es un registro global y si su blueprint es el Header (Site\Header)
-            if (
-                class_exists(\Tailor\Models\GlobalRecord::class) && 
-                $widget->model instanceof \Tailor\Models\GlobalRecord && 
-                $widget->model->blueprint_uuid === 'b095bb4d-774b-4475-9969-9ad77f24faf9'
-            ) {
-                $pluginManager = \System\Classes\PluginManager::instance();
-                
-                $hasUser = $pluginManager->hasPlugin('RainLab.User');
-                $hasSearch = $pluginManager->hasPlugin('Offline.SiteSearch');
-                $hasMall = $pluginManager->hasPlugin('Offline.Mall');
-
-                // Campos repeater donde buscaremos los grupos
-                $repeaters = ['topbar_left', 'topbar_center', 'topbar_right'];
-
-                foreach ($repeaters as $fieldName) {
-                    $field = $widget->getField($fieldName);
-                    if ($field && isset($field->config['groups'])) {
-                        $groups = $field->config['groups'];
-
-                        if (!$hasUser && isset($groups['user_account'])) {
-                            unset($groups['user_account']);
-                        }
-                        if (!$hasSearch && isset($groups['search_input'])) {
-                            unset($groups['search_input']);
-                        }
-                        if (!$hasMall && isset($groups['mall_cart'])) {
-                            unset($groups['mall_cart']);
-                        }
-
-                        $field->config['groups'] = $groups;
-                    }
-                }
-            }
         });
 
         // Soporte de persistencia para Repeater en OFFLINE.Boxes
